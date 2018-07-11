@@ -43,7 +43,7 @@
     
     <title>
         
-            归档: 2018/7 | 
+            解决iOS微信H5支付跳转微信后不返回App问题（Swift-WKWebview） | 
         
         Siter的博客-iOS技术记录Swift、ObjC、Flutter
     </title>
@@ -215,7 +215,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Siter的博客-iOS技术记录Swift、ObjC、Flutter">
-    <meta name="msapplication-starturl" content="http://SiterZzz.github.io/archives/2018/07/">
+    <meta name="msapplication-starturl" content="http://SiterZzz.github.io/2018/07/11/iOS-Swift-WXH5-Pay/">
     <meta name="msapplication-navbutton-color" content="#0097A7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Siter的博客-iOS技术记录Swift、ObjC、Flutter">
@@ -230,13 +230,16 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="http://SiterZzz.github.io/archives/2018/07/">
+    <meta property="og:url" content="http://SiterZzz.github.io/2018/07/11/iOS-Swift-WXH5-Pay/">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="归档: 2018/7 | Siter的博客-iOS技术记录Swift、ObjC、Flutter">
+    <meta property="og:title" content="解决iOS微信H5支付跳转微信后不返回App问题（Swift-WKWebview） | Siter的博客-iOS技术记录Swift、ObjC、Flutter">
     <meta property="og:image" content="/img/favicon.png">
     <meta property="og:description" content="">
     
 
+    
+        <meta property="article:published_time" content="Wed Jul 11 2018 13:20:14 GMT+0800">
+        <meta property="article:modified_time" content="Wed Jul 11 2018 14:58:27 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -244,13 +247,43 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://SiterZzz.github.io/archives/2018/07/index.html" />
+        <link rel="canonical" href="http://SiterZzz.github.io/2018/07/11/iOS-Swift-WXH5-Pay/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "http://SiterZzz.github.io/2018/07/11/iOS-Swift-WXH5-Pay/index.html",
+    "headline": "解决iOS微信H5支付跳转微信后不返回App问题（Swift-WKWebview）",
+    "datePublished": "Wed Jul 11 2018 13:20:14 GMT+0800",
+    "dateModified": "Wed Jul 11 2018 14:58:27 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "Siter",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "欢迎来到本博客-主要以iOS技术分享为主，记录开发过程中踩过的坑。"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Siter的博客-iOS技术记录Swift、ObjC、Flutter",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": "",
+    "description": "",
+}
+</script>
 
 
     
@@ -288,151 +321,276 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
-    <!-- Pin on top -->
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#问题分析"><span class="post-toc-number">1.</span> <span class="post-toc-text">问题分析</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#问题分析-1"><span class="post-toc-number">2.</span> <span class="post-toc-text">问题分析</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#根据上面的分析解决的思路应该非常的清晰"><span class="post-toc-number">2.0.1.</span> <span class="post-toc-text">根据上面的分析解决的思路应该非常的清晰</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#拦截请求"><span class="post-toc-number">2.0.2.</span> <span class="post-toc-text">拦截请求</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#拦截weixin-wap-pay-打开微信"><span class="post-toc-number">2.0.3.</span> <span class="post-toc-text">拦截weixin://wap/pay? 打开微信</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#在项目设置Scheme链接用于支付完后返回App"><span class="post-toc-number">2.0.4.</span> <span class="post-toc-text">在项目设置Scheme链接用于支付完后返回App</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#在AppDelegate里监听url-scheme的值"><span class="post-toc-number">2.0.5.</span> <span class="post-toc-text">在AppDelegate里监听url.scheme的值</span></a></li></ol></li></ol></li></ol>
+    </ul>
     
 
-    <!-- Normal Post -->
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/07/11/iOS-Swift-WXH5-Pay/">解决iOS微信H5支付跳转微信后不返回App问题（Swift-WKWebview）</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            
-微信支付其实在日常的开发中是经常接触的,但是在H5跳转问题上有或多或少的坑本,其中最难解决的是支付完成后返回App，并且返...
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/07/11/iOS-Swift-WXH5-Pay/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Siter's avatar">
-            </div>
-            <div>
-                <strong>Siter</strong>
-                <span>7月 11, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-          
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
-
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2018/07/05/swiftTips/">Swift进阶知识点笔记-柯里化（Currying）</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            
-Swift现在显然已成为苹果爸爸的亲儿子，了解学习Swift已是大势所趋。虽然当前Swift的ABI、编译速度、包的大小还...
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2018/07/05/swiftTips/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Siter's avatar">
-            </div>
-            <div>
-                <strong>Siter</strong>
-                <span>7月 05, 2018</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-          
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-
-    
-
-    
-        <script type="text/ls-javascript" id="thumbnail-script">
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 19 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
     $('.post_thumbnail-random').addClass('lazy');
-
-        locatePost = locatePost.next();
-    }
 </script>
 
+        
+    
+            <p class="article-headline-p">
+                解决iOS微信H5支付跳转微信后不返回App问题（Swift-WKWebview）
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Siter</strong>
+        <span>7月 11, 2018</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=解决iOS微信H5支付跳转微信后不返回App问题（Swift-WKWebview）&url=http://SiterZzz.github.io/2018/07/11/iOS-Swift-WXH5-Pay/index.html&pic=http://SiterZzz.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=解决iOS微信H5支付跳转微信后不返回App问题（Swift-WKWebview）&url=http://SiterZzz.github.io/2018/07/11/iOS-Swift-WXH5-Pay/index.html&via=Siter" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://SiterZzz.github.io/2018/07/11/iOS-Swift-WXH5-Pay/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://SiterZzz.github.io/2018/07/11/iOS-Swift-WXH5-Pay/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
     
 </div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <blockquote>
+<p>微信支付其实在日常的开发中是经常接触的,但是在H5跳转问题上有或多或少的坑本,其中最难解决的是支付完成后返回App，并且返回App后白屏的解决。本次使用的是Swift：WKWebview  OC 和WebView同理</p>
+</blockquote>
+<p>建议阅读时间：<strong>10mins</strong> </p>
+<hr>
+<ul>
+<li><h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><p>  正常的H5支付流程如下<br>  <img src="http://of0pe0a6g.bkt.clouddn.com/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6.jpg" alt=""></p>
+<p>  按照上面的支付流程会出现 App -&gt; 微信 -&gt; 支付 -&gt; 点击 完成 -&gt; safari访问redirect_url设置的URL，这种流程其实用户体验是有点糟糕的，我们期望是 App -&gt; 微信 -&gt; 支付 -&gt; 点击 完成 -&gt; App访问redirect_url设置的URL</p>
+<p>  <img src="http://of0pe0a6g.bkt.clouddn.com/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6-2.jpg" alt=""></p>
+<p>  问题分析到上面已经非常明了了，无非就是拦截处理，下面讲讲具体的实施。</p>
+</li>
+<li><h2 id="问题分析-1"><a href="#问题分析-1" class="headerlink" title="问题分析"></a>问题分析</h2><h4 id="根据上面的分析解决的思路应该非常的清晰"><a href="#根据上面的分析解决的思路应该非常的清晰" class="headerlink" title="根据上面的分析解决的思路应该非常的清晰"></a>根据上面的分析解决的思路应该非常的清晰</h4><p>  <img src="http://of0pe0a6g.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1H5%E6%94%AF%E4%BB%98%E4%B8%8D%E8%BF%94%E5%9B%9EAPP%E8%A7%A3%E5%86%B3%E6%B5%81%E7%A8%8B.jpg" alt=""></p>
+<h4 id="拦截请求"><a href="#拦截请求" class="headerlink" title="拦截请求"></a>拦截请求</h4><p>  首先在<strong>decidePolicyFor</strong> 回调里拦截支付的请求拦截的字符串:<strong><a href="https://wx.tenpay.com/cgi-bin/mmpayweb-bin/checkmweb" target="_blank" rel="noopener">https://wx.tenpay.com/cgi-bin/mmpayweb-bin/checkmweb</a></strong> 如果包含了该链接做如下处理，isload变量是控制是否是第一次没有修改redirect_url参数的请求防止重复请求</p>
+<pre><code>if urlString?.range(of: &quot;https://wx.tenpay.com/cgi-bin/mmpayweb-bin/checkmweb&quot;) != nil &amp;&amp; !self.isload{
+    if let mUrlStr = urlString{
+        let array : Array = mUrlStr.components(separatedBy: &quot;redirect_url=&quot;)
+        self.redirect_url =  array[1]
+        let rs = &quot;\(WXH5SchemeURL)://&quot;.urlEncoded()
+        let mNewUrl = array[0] + &quot;redirect_url=\(rs)&quot;
+        let newURLS = URL(string: mNewUrl)
+        var mRequest = URLRequest.init(url: newURLS!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 60)
+        mRequest.setValue(&quot;\(WXH5SchemeURL)://&quot;, forHTTPHeaderField: &quot;Referer&quot;)
+        webView.load(mRequest)
+        self.isload = true
+        decisionHandler(.cancel)
+        return
+    }
+}
+self.isload = false
+decisionHandler(.allow)
+}
+</code></pre><h4 id="拦截weixin-wap-pay-打开微信"><a href="#拦截weixin-wap-pay-打开微信" class="headerlink" title="拦截weixin://wap/pay? 打开微信"></a>拦截weixin://wap/pay? 打开微信</h4><pre><code>if urlString?.range(of: &quot;weixin://wap/pay?&quot;) != nil{
+    if let mUrlStr = urlString{
+        let openWX = URL(string: mUrlStr)
+        if (UIApplication.shared.canOpenURL(openWX!)){
+            if #available(iOS 10.0, *){
+                UIApplication.shared.open(openWX!, options: [UIApplicationOpenSettingsURLString:false], completionHandler: nil)
+            }else{
+                UIApplication.shared.openURL(openWX!)
+            }
+        }
+        decisionHandler(.cancel)
+        return
+    }
+}
+</code></pre><p>  这一步的话没甚好介绍的就是拦截打开微信支付即可。</p>
+<h4 id="在项目设置Scheme链接用于支付完后返回App"><a href="#在项目设置Scheme链接用于支付完后返回App" class="headerlink" title="在项目设置Scheme链接用于支付完后返回App"></a>在项目设置Scheme链接用于支付完后返回App</h4><p>  具体操作如下图</p>
+<p>  <img src="http://of0pe0a6g.bkt.clouddn.com/DB26B99A-16F6-4B86-8CCB-91490610A4DD.png" alt=""></p>
+<p>  到这一步已经成功了一大半了，你会发现现在支付成功后能返回App了但是返回的时候webView是白屏。白屏其实就是网页没有任何请求导致的，接下来我们就要使用上步提前记录好后台给的redirect_url的url了。</p>
+<h4 id="在AppDelegate里监听url-scheme的值"><a href="#在AppDelegate里监听url-scheme的值" class="headerlink" title="在AppDelegate里监听url.scheme的值"></a>在AppDelegate里监听url.scheme的值</h4><p>  在AppDelegate里监听url.scheme的值是否为我们之前设置好的xxxx.com 如果是xxxx.com 发起通知  通知webview加载提前记录好的redirect_url的url了</p>
+<pre><code>if ([url.scheme rangeOfString:@&quot;quanzidian.net&quot;].length!=0) {
+    [NSNotificationCenter defaultCenter] postNotificationName:@&quot;WX_H5_PAY&quot; object:nil];
+    return YES;
+}
+</code></pre><p>  在wkWebView接收通知</p>
+<pre><code>NotificationCenter.default.addObserver(self, selector: #selector(goBackWhitWXPay), name: NSNotification.Name(rawValue: &quot;WX_H5_PAY&quot;), object: nil)
+</code></pre><p>  重新刷新WKWebview</p>
+<pre><code>@objc func goBackWhitWXPay(){
+    if !self.redirect_url.isEmpty{
+        self.request = URLRequest(url: URL(string: self.redirect_url)!)
+        redirect_url = &quot;&quot;
+    }
+}
+</code></pre><p>  项目使用的oc/Swift 混编有些地方和你使用的语言不一致时请自行模仿做写。</p>
+<p>  <strong>到这里微信H5支付所有的问题就完美解决了 唯一的坑就是在截取请求时，重写redirect_url时注意一定时授权的URL://的协议。</strong></p>
+</li>
+</ul>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2018/07/05/swiftTips/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     
